@@ -1,4 +1,5 @@
 const theNumber = [];
+const tries = [];
 
 const asList = new Intl.ListFormat("es-ES", {
   style: "long",
@@ -82,31 +83,37 @@ const onButtonClick = () => {
     validateNumber(value);
     const result = tryNumber(value);
 
-    const li = document.createElement("li");
-    const span = document.createElement("span");
-    span.classList.add("try-value");
-    span.innerText = `${value}:`;
-    li.appendChild(span);
-    document.querySelector(".list").appendChild(li);
-    window.scrollTo(0, document.body.scrollHeight);
-
-    if (result.b === digits) {
-      input.disabled = true;
-      button.disabled = true;
-      li.append("¡Ganaste!");
-      li.classList.add("ganaste");
-    } else {
-      const resultList = [];
-      result.b > 0 && resultList.push(`${result.b} bien`);
-      result.r > 0 && resultList.push(`${result.r} regular`);
-      const description =
-        resultList.length === 0 ? "Todas mal" : asList.format(resultList);
-
-      li.classList.add(`cercania-${result.b}`);
-
-      li.append(description);
-
+    if (tries.includes(value)) {
+      alert("Ya probaste con ese número. Intentá con otro...");
       input.value = "";
+    } else {
+      const li = document.createElement("li");
+      const span = document.createElement("span");
+      span.classList.add("try-value");
+      span.innerText = `${value}:`;
+      li.appendChild(span);
+      document.querySelector(".list").appendChild(li);
+      tries.push(value);
+      window.scrollTo(0, document.body.scrollHeight);
+
+      if (result.b === digits) {
+        input.disabled = true;
+        button.disabled = true;
+        li.append("¡Ganaste!");
+        li.classList.add("ganaste");
+      } else {
+        const resultList = [];
+        result.b > 0 && resultList.push(`${result.b} bien`);
+        result.r > 0 && resultList.push(`${result.r} regular`);
+        const description =
+          resultList.length === 0 ? "Todas mal" : asList.format(resultList);
+
+        li.classList.add(`cercania-${result.b}`);
+
+        li.append(description);
+
+        input.value = "";
+      }
     }
   } catch (error) {
     errorMessage.innerText = error.message;
