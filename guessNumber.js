@@ -1,4 +1,5 @@
 const theNumber = [];
+const tries = [];
 
 const asList = new Intl.ListFormat("es-ES", {
   style: "long",
@@ -78,8 +79,17 @@ const onInput = (e) => {
 const onButtonClick = () => {
   const value = input.value;
 
+  const validateItsUnique = (value) => {
+    if (tries.includes(value)) {
+      throw new Error(`El número ${value} ya lo probaste. Intentá con otro`, {
+        cause: "repeated-number",
+      });
+    }
+  };
+
   try {
     validateNumber(value);
+    validateItsUnique(value);
     const result = tryNumber(value);
 
     const li = document.createElement("li");
@@ -105,13 +115,18 @@ const onButtonClick = () => {
       li.classList.add(`cercania-${result.b}`);
 
       li.append(description);
-
+      tries.push(value);
       input.value = "";
     }
   } catch (error) {
-    errorMessage.innerText = error.message;
-    input.classList.add("error");
-    inputWrapper.classList.add("error");
+    if (error.cause === "repeated-number") {
+      alert(error.message);
+      input.value = "";
+    } else {
+      errorMessage.innerText = error.message;
+      input.classList.add("error");
+      inputWrapper.classList.add("error");
+    }
   }
 };
 
