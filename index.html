@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Adiviná Numero</title>
+    <title>Ziffern</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -83,13 +83,11 @@
         grid-template-columns: auto;
       }
 
-      h1 {
-        font-family: "Open Sans", sans-serif;
-        font-size: 32px;
-        font-weight: 400;
-        color: var(--list-text-color);
-        text-align: center;
+      .logo {
+        width: 100%;
+        height: auto;
       }
+
       .input-wrapper {
         display: grid;
         grid-template-columns: auto 100px;
@@ -196,16 +194,11 @@
           margin-bottom: 40vh;
         }
       }
-      @media screen and (max-width: 555px) {
-        h1 {
-          font-size: 7vw;
-        }
-      }
     </style>
   </head>
   <body>
     <header>
-      <h1>Adiviná el numero</h1>
+      <img src="logo.svg" alt="Ziffern" class="logo" />
       <div class="input-wrapper">
         <input type="tel" class="input" />
         <button>Probar</button>
