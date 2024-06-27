@@ -131,7 +131,7 @@ const onButtonClick = () => {
 };
 
 input.addEventListener("keydown", (e) => {
-  if (e.keyCode === 13) {
+  if (e.key === "Enter") {
     onButtonClick();
   } else {
     onInput(e);
