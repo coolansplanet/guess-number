@@ -127,6 +127,14 @@ const onCheckButtonClick = () => {
   }
 };
 
+const onKeyPress = (e) => {
+  if (e.key === "Enter") {
+    onCheckButtonClick();
+  } else {
+    onInput(e);
+  }
+};
+
 const onRefreshButtonClick = () => {
   const isConfirmed = confirm(
     "¿Estás seguro de querer iniciar un juego nuevo?"
@@ -147,13 +155,7 @@ input.focus();
 
 input.addEventListener("input", onInput);
 
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    onCheckButtonClick();
-  } else {
-    onInput(e);
-  }
-});
+input.addEventListener("keydown", onKeyPress);
 
 checkButton.addEventListener("click", onCheckButtonClick);
 
