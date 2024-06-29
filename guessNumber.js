@@ -1,12 +1,18 @@
 const theNumber = [];
 const tries = [];
+const digits = 4;
+
+const errorMessage = document.querySelector(".error-message");
+const input = document.querySelector(".input");
+const inputWrapper = document.querySelector(".input-wrapper");
+const checkButton = document.querySelector(".check-button");
+const refreshButton = document.querySelector(".refresh-button");
+const historyDisplayed = document.querySelector(".list");
 
 const asList = new Intl.ListFormat("es-ES", {
   style: "long",
   type: "conjunction",
 });
-
-const digits = 4;
 
 const generateNumber = () => {
   while (theNumber.length < digits) {
@@ -60,15 +66,6 @@ const tryNumber = (stringifiedNumber) => {
   return { b, r };
 };
 
-/////////////////////////////
-const errorMessage = document.querySelector(".error-message");
-const input = document.querySelector(".input");
-const inputWrapper = document.querySelector(".input-wrapper");
-const button = document.querySelector("button");
-
-input.setAttribute("maxlength", digits);
-input.focus();
-
 const onInput = (e) => {
   input.value = e.target.value.replaceAll(/[^\d]/g, "");
   errorMessage.innerText = "";
@@ -76,7 +73,7 @@ const onInput = (e) => {
   inputWrapper.classList.remove("error");
 };
 
-const onButtonClick = () => {
+const onCheckButtonClick = () => {
   const value = input.value;
 
   const validateItsUnique = (value) => {
@@ -97,12 +94,12 @@ const onButtonClick = () => {
     span.classList.add("try-value");
     span.innerText = `${value}:`;
     li.appendChild(span);
-    document.querySelector(".list").appendChild(li);
+    historyDisplayed.appendChild(li);
     window.scrollTo(0, document.body.scrollHeight);
 
     if (result.b === digits) {
       input.disabled = true;
-      button.disabled = true;
+      checkButton.disabled = true;
       li.append("¡Ganaste!");
       li.classList.add("ganaste");
     } else {
@@ -130,16 +127,36 @@ const onButtonClick = () => {
   }
 };
 
+const onRefreshButtonClick = () => {
+  const isConfirmed = confirm(
+    "¿Estás seguro de querer iniciar un juego nuevo?"
+  );
+  if (isConfirmed) {
+    theNumber.splice(0, theNumber.length);
+    tries.splice(0, tries.length);
+    generateNumber();
+    input.disabled = false;
+    historyDisplayed.innerHTML = "";
+    input.value = "";
+  }
+};
+
+input.setAttribute("maxlength", digits);
+
+input.focus();
+
+input.addEventListener("input", onInput);
+
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    onButtonClick();
+    onCheckButtonClick();
   } else {
     onInput(e);
   }
 });
 
-input.addEventListener("input", onInput);
+checkButton.addEventListener("click", onCheckButtonClick);
 
-button.addEventListener("click", onButtonClick);
+refreshButton.addEventListener("click", onRefreshButtonClick);
 
 generateNumber();
