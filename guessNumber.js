@@ -127,11 +127,17 @@ const onCheckButtonClick = () => {
   }
 };
 
-const onKeyPress = (e) => {
+const onInputKeyPress = (e) => {
   if (e.key === "Enter") {
     onCheckButtonClick();
   } else {
     onInput(e);
+  }
+};
+
+const onKeyPressGlobal = (e) => {
+  if (e.key === "r" || e.key === "r") {
+    onRefreshButtonClick();
   }
 };
 
@@ -150,7 +156,7 @@ const onRefreshButtonClick = () => {
 };
 
 input.addEventListener("input", onInput);
-input.addEventListener("keydown", onKeyPress);
+input.addEventListener("keydown", onInputKeyPress);
 checkButton.addEventListener("click", onCheckButtonClick);
 refreshButton.addEventListener("click", onRefreshButtonClick);
 
