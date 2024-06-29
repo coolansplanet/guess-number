@@ -149,16 +149,13 @@ const onRefreshButtonClick = () => {
   }
 };
 
+input.addEventListener("input", onInput);
+input.addEventListener("keydown", onKeyPress);
+checkButton.addEventListener("click", onCheckButtonClick);
+refreshButton.addEventListener("click", onRefreshButtonClick);
+
 input.setAttribute("maxlength", digits);
 
 input.focus();
-
-input.addEventListener("input", onInput);
-
-input.addEventListener("keydown", onKeyPress);
-
-checkButton.addEventListener("click", onCheckButtonClick);
-
-refreshButton.addEventListener("click", onRefreshButtonClick);
 
 generateNumber();
