@@ -135,7 +135,7 @@ const onInputKeyPress = (e) => {
   }
 };
 
-const onKeyPressGlobal = (e) => {
+const onGlobalKeyPress = (e) => {
   if (e.key === "r" || e.key === "r") {
     onRefreshButtonClick();
   }
@@ -159,6 +159,7 @@ input.addEventListener("input", onInput);
 input.addEventListener("keydown", onInputKeyPress);
 checkButton.addEventListener("click", onCheckButtonClick);
 refreshButton.addEventListener("click", onRefreshButtonClick);
+document.addEventListener("keydown", onGlobalKeyPress);
 
 input.setAttribute("maxlength", digits);
 
