@@ -2,6 +2,20 @@ const theNumber = [];
 const tries = [];
 const digits = 4;
 
+const text = {
+  //TODO: I'm not sure if key names like "youWon" are correctly translated. Check them and fix them
+  noDecimals: "NO debe tener decimales",
+  noRepeatedDigits: "NO debe tener dígitos repetidos",
+  numberSize: "debe tener {{digits}} dígitos",
+  numberAlreadyEntered: "El número {{value}} ya lo probaste. Intentá con otro",
+  youWon: "¡Ganaste!",
+  errorMessage: "El número {{errorMessage}}",
+  newGameConfirmation: "¿Estás seguro de querer iniciar un juego nuevo?",
+  good: "{{amount}} bien",
+  regular: "{{amount}} regular",
+  allWrong: "Todas mal",
+};
+
 const errorMessage = document.querySelector(".error-message");
 const input = document.querySelector(".input");
 const inputWrapper = document.querySelector(".input-wrapper");
@@ -148,10 +162,11 @@ const onRefreshButtonClick = () => {
   if (isConfirmed) {
     theNumber.splice(0, theNumber.length);
     tries.splice(0, tries.length);
+    historyDisplayed.innerHTML = "";
     generateNumber();
     input.disabled = false;
-    historyDisplayed.innerHTML = "";
     input.value = "";
+    input.focus();
   }
 };
 
